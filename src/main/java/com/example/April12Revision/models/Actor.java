@@ -4,6 +4,7 @@ public class Actor {
 
     private Integer actorId;
     private Integer actorName;
+    private boolean isDeleted;
 
     public Integer getActorId() {
         return actorId;
@@ -19,6 +20,14 @@ public class Actor {
 
     public void setActorName(Integer actorName) {
         this.actorName = actorName;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }

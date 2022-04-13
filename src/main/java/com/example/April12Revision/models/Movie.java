@@ -9,6 +9,7 @@ public class Movie {
     private Integer personalRating;
     private Date releaseDate;
     private String synopsis;
+    private boolean isDeleted;
 
     public Integer getMovieId() {
         return movieId;
@@ -49,5 +50,15 @@ public class Movie {
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    
 
 }
