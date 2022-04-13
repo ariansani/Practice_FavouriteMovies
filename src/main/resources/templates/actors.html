@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    Woopsy daisy
+    <table border =1>
+        <tbody>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+            <tr data-th-each="actor : ${movieCast}">
+                <td data-th-text="${actor.getActorId}"></td>
+                <td data-th-text="${actor.getActorName}"></td>
+                <td>
+               
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

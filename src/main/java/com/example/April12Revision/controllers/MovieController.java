@@ -1,6 +1,7 @@
 package com.example.April12Revision.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.April12Revision.models.Actor;
 import com.example.April12Revision.models.Movie;
@@ -39,8 +40,10 @@ public class MovieController {
 
         ModelAndView mvc = new ModelAndView();
 
-        List<Actor> actorsList = movieSvc.getAllActors();
-        // mvc.addObject("moviesList", moviesList);
+        Optional<List<Actor>> opt = movieSvc.getActorsByMovie(movieId);
+        List<Actor> movieCast = opt.get();
+
+        mvc.addObject("movieCast", movieCast);
         mvc.setStatus(HttpStatus.OK);
         mvc.setViewName("actors");
 

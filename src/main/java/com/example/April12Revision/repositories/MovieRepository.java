@@ -2,6 +2,7 @@ package com.example.April12Revision.repositories;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.April12Revision.models.Actor;
 import com.example.April12Revision.models.Movie;
@@ -51,6 +52,24 @@ public class MovieRepository {
         
         return actorsList;
     } 
+
+    public Optional<List<Actor>> getActorsByMovie(int movieId){
+
+        List<Actor> movieCast = new LinkedList<>();
+
+        final SqlRowSet rs = template.queryForRowSet(Queries.SQL_SELECT_ACTIVE_ACTORS_BY_MOVIE, movieId, false);
+        
+        while(rs.next()){
+            Actor actor = new Actor();
+            actor.setActorId(rs.getInt("actor_id"));
+            actor.setActorName(rs.getString("actor_name"));
+            movieCast.add(actor);
+        }
+        
+        
+        return Optional.of(movieCast);
+
+    }
 
 
 }
