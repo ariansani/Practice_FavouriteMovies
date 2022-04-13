@@ -3,7 +3,7 @@ package com.example.April12Revision.models;
 public class Actor {
 
     private Integer actorId;
-    private Integer actorName;
+    private String actorName;
     private boolean isDeleted;
 
     public Integer getActorId() {
@@ -14,11 +14,11 @@ public class Actor {
         this.actorId = actorId;
     }
 
-    public Integer getActorName() {
+    public String getActorName() {
         return actorName;
     }
 
-    public void setActorName(Integer actorName) {
+    public void setActorName(String actorName) {
         this.actorName = actorName;
     }
 
