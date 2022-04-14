@@ -30,5 +30,26 @@
             </tr>
         </tbody>
     </table>
+    <hr/>
+    <br/>
+    <h1>Actor List</h1>
+    <table border =1>
+        <tbody>
+            <th>Id</th>
+            <th>Name</th>
+          
+            <tr data-th-each="actor : ${actorsList}">
+                <td data-th-text="${actor.getActorId}"></td>
+                <td data-th-text="${actor.getActorName}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+        <form data-th-action="@{/createActor}" method="post">
+            <input type="text" name="actorName">
+            <button type="submit">Add</button>
+        </form>
+        <span data-th-text="${message}"></span>
+        
 </body>
 </html>

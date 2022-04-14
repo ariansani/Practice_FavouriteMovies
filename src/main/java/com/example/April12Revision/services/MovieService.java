@@ -3,6 +3,7 @@ package com.example.April12Revision.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.April12Revision.Exceptions.ActorException;
 import com.example.April12Revision.Exceptions.MovieException;
 import com.example.April12Revision.models.Actor;
 import com.example.April12Revision.models.Movie;
@@ -68,5 +69,18 @@ public class MovieService {
             throw new MovieException("Cannot add %s as movieCast. Please check with admin".formatted(actorId));
 
     }
+
+    public void createActor(String actorName,Boolean is_deleted) throws ActorException{
+
+        Optional<Integer> opt = movieRepo.actorAlreadyCreated(actorName, is_deleted);
+
+        if (opt.isPresent())
+            throw new ActorException("%s is already available".formatted(actorName));
+
+        if (!movieRepo.createActor(actorName,is_deleted))
+            throw new ActorException("Cannot add %s as movieCast. Please check with admin".formatted(actorName));
+
+    }
+    
     
 }

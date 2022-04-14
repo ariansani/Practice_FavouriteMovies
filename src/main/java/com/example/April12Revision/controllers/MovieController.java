@@ -3,6 +3,7 @@ package com.example.April12Revision.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.April12Revision.Exceptions.ActorException;
 import com.example.April12Revision.Exceptions.MovieException;
 import com.example.April12Revision.models.Actor;
 import com.example.April12Revision.models.Movie;
@@ -32,7 +33,11 @@ public class MovieController {
         ModelAndView mvc = new ModelAndView();
 
         List<Movie> moviesList = movieSvc.getAllMovies();
+        List<Actor> allActorsList = movieSvc.getAllActors();
+        
+        mvc.addObject("message", "");
         mvc.addObject("moviesList", moviesList);
+        mvc.addObject("actorsList", allActorsList);
         mvc.setStatus(HttpStatus.OK);
         mvc.setViewName("index");
 
@@ -96,6 +101,33 @@ public class MovieController {
         mvc.setViewName("actors");
         return mvc;
     }
+
+    @PostMapping(path="/createActor")
+    public ModelAndView createActor(@RequestBody MultiValueMap<String,String> form){
+
+        ModelAndView mvc = new ModelAndView();
+        
+        String actorName = form.getFirst("actorName");
+        try{
+            movieSvc.createActor(actorName, false);
+
+        }catch (ActorException ex) {
+            mvc.addObject("message", "Error: %s".formatted(ex.getReason()));
+            mvc.setStatus(HttpStatus.BAD_REQUEST);
+            ex.printStackTrace();
+        }
+
+
+        List<Movie> moviesList = movieSvc.getAllMovies();
+        List<Actor> allActorsList = movieSvc.getAllActors();
+        mvc.addObject("moviesList", moviesList);
+        mvc.addObject("actorsList", allActorsList);
+        mvc.setStatus(HttpStatus.OK);
+        mvc.setViewName("index");
+
+        return mvc;
+    }
+
 
 
 }

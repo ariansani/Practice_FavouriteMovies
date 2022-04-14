@@ -106,6 +106,23 @@ public class MovieRepository {
         return 1 == count;
     }
 
+    public Optional<Integer> actorAlreadyCreated(String actorName, Boolean is_deleted){
+        final SqlRowSet rs = template.queryForRowSet(Queries.SQL_CHECK_IF_ACTOR_EXISTS, actorName, is_deleted);
+        int count = 0;
+        if (!rs.next())
+            return Optional.empty();
+        
+        count++;
+        return Optional.of(count);
+
+    }
+
+    public boolean createActor(String actorName, Boolean is_deleted){
+        int count = template.update(Queries.SQL_INSERT_ACTOR, actorName, is_deleted);
+        
+        return 1 == count;
+    }
+
 
 
 }
