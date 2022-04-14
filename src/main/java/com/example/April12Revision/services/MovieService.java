@@ -41,5 +41,19 @@ public class MovieService {
         return Optional.of(actorList);
 
     }
+
+    public Optional<Movie> getMovieById(int movieId){
+
+        Optional<Movie> opt = movieRepo.getMovieById(movieId);
+
+        if(opt.isEmpty()){
+            return Optional.empty();
+          }
+  
+          Movie movie = opt.get();
+  
+          return Optional.of(movie);
+
+    }
     
 }

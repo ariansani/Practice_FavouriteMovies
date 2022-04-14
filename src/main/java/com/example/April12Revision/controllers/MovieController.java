@@ -41,9 +41,17 @@ public class MovieController {
         ModelAndView mvc = new ModelAndView();
 
         Optional<List<Actor>> opt = movieSvc.getActorsByMovie(movieId);
+        Optional<Movie> optMovie = movieSvc.getMovieById(movieId);
+        List<Actor> allActorsList = movieSvc.getAllActors();
+
+
         List<Actor> movieCast = opt.get();
 
+        Movie movie = optMovie.get();
+
+        mvc.addObject("allActorsList", allActorsList);
         mvc.addObject("movieCast", movieCast);
+        mvc.addObject("movie", movie);
         mvc.setStatus(HttpStatus.OK);
         mvc.setViewName("actors");
 

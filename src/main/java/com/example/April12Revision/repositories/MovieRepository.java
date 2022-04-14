@@ -71,5 +71,23 @@ public class MovieRepository {
 
     }
 
+    public Optional<Movie> getMovieById(int movieId){
+
+        Movie movie = new Movie();
+
+        final SqlRowSet rs = template.queryForRowSet(Queries.SQL_SELECT_ACTIVE_MOVIE_BY_ID, movieId, false);
+
+        while (rs.next()){
+            movie.setMovieId(rs.getInt("movie_id"));
+            movie.setMovieName(rs.getString("movie_name"));
+            movie.setPersonalRating(rs.getInt("personal_rating"));
+            movie.setReleaseDate(rs.getDate("release_date"));
+            movie.setSynopsis(rs.getString("synopsis"));
+        }
+
+        return Optional.of(movie);
+
+    }
+
 
 }
