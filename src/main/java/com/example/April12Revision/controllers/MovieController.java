@@ -52,7 +52,8 @@ public class MovieController {
         List<Actor> movieCast = opt.get();
 
         Movie movie = optMovie.get();
-
+        
+        mvc.addObject("message", "");
         mvc.addObject("allActorsList", allActorsList);
         mvc.addObject("movieCast", movieCast);
         mvc.addObject("movie", movie);
