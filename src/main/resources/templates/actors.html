@@ -28,15 +28,7 @@
     <hr/>
     <br/>
     <h1>Movie Cast</h1> 
-    <form action="/addActor" method="post">
-        <select name="addActor" id="addActor">
-            <option data-th-each="actor : ${allActorsList}"
-            data-th-value="${actor.getActorId}"
-            th:text="${actor.getActorName}"></option>
-        </select>
-        <button type="submit">Add This Actor To Movie Cast</button>
-    </form>
-
+ 
     <table border =1>
         <tbody>
             <th>Id</th>
@@ -49,6 +41,15 @@
             </tr>
         </tbody>
     </table>
+    <form action="/addActor" method="post">
+        <select name="addActor" id="addActor">
+            <option data-th-each="actor : ${allActorsList}"
+            data-th-value="${actor.getActorId}"
+            th:text="${actor.getActorName}"></option>
+        </select>
+        <input type="number" name="movieId" data-th-value="${movie.getMovieId}" hidden>
+        <button type="submit">Add This Actor To Movie Cast</button>
+    </form>
 
 
    

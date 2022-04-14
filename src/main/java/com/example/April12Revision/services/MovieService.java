@@ -3,6 +3,7 @@ package com.example.April12Revision.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.April12Revision.Exceptions.MovieException;
 import com.example.April12Revision.models.Actor;
 import com.example.April12Revision.models.Movie;
 import com.example.April12Revision.repositories.MovieRepository;
@@ -53,6 +54,18 @@ public class MovieService {
           Movie movie = opt.get();
   
           return Optional.of(movie);
+
+    }
+
+    public void addActorToMovie(int actorId,int movieId) throws MovieException{
+
+        Optional<Integer> opt = movieRepo.actorAlreadyExists(actorId, movieId);
+
+        if (opt.isPresent())
+            throw new MovieException("%s is already your cast".formatted(actorId));
+
+        if (!movieRepo.addActorToMovie(actorId,movieId))
+            throw new MovieException("Cannot add %s as movieCast. Please check with admin".formatted(actorId));
 
     }
     

@@ -89,5 +89,23 @@ public class MovieRepository {
 
     }
 
+    public Optional<Integer> actorAlreadyExists(int actorId, int movieId){
+        final SqlRowSet rs = template.queryForRowSet(Queries.SQL_CHECK_IF_MOVIECAST_EXISTS, actorId, movieId);
+        int count = 0;
+        if (!rs.next())
+            return Optional.empty();
+        
+        count++;
+        return Optional.of(count);
+
+    }
+
+    public boolean addActorToMovie(int actorId, int movieId){
+        int count = template.update(Queries.SQL_INSERT_MOVIECAST, actorId, movieId);
+        
+        return 1 == count;
+    }
+
+
 
 }
