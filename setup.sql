@@ -55,7 +55,7 @@ INSERT INTO movie_cast(movie_id, actor_id)
 values(1,1),
 (2,2),
 (3,3),
-(3,4),
+(2,4),
 (4,4),
 (1,5),
 (3,6)
