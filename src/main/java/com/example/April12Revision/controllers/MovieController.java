@@ -129,8 +129,45 @@ public class MovieController {
         return mvc;
     }
 
+    // @PostMapping(path = "/createMovie")
+    // public ModelAndView createMovie(@RequestBody MultiValueMap<String, String> form) {
+
+    //     ModelAndView mvc = new ModelAndView();
+    //     String movieName = form.getFirst("movieName");
+    //     Integer rating = Integer.parseInt(form.getFirst("rating"));
+    //     String dateStr = form.getFirst("releaseDate");
+
+    //     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    //     Date releaseDate;
+    //     try {
+    //         releaseDate = format.parse(dateStr);
+    //     } catch (ParseException e) {
+    //         releaseDate = null;
+    //         e.printStackTrace();
+    //     }
+
+    //     String synopsis = form.getFirst("synopsis");
+    //     Boolean isDeleted = false;
+
+    //     try {
+    //         movieSvc.createMovie(movieName, rating, releaseDate, synopsis, isDeleted);
+    //     } catch (MovieException e) {
+    //         mvc.addObject("messageMovie", "Error: %s".formatted(e.getReason()));
+    //         mvc.setStatus(HttpStatus.BAD_REQUEST);
+    //         e.printStackTrace();
+    //     }
+
+    //     List<Movie> moviesList = movieSvc.getAllMovies();
+    //     List<Actor> allActorsList = movieSvc.getAllActors();
+    //     mvc.addObject("moviesList", moviesList);
+    //     mvc.addObject("actorsList", allActorsList);
+    //     mvc.setStatus(HttpStatus.OK);
+    //     mvc.setViewName("index");
+
+    //     return mvc;
+    // }
     @PostMapping(path = "/createMovie")
-    public ModelAndView createMovie(@RequestBody MultiValueMap<String, String> form) {
+    public ModelAndView createMovieTransactional(@RequestBody MultiValueMap<String, String> form) {
 
         ModelAndView mvc = new ModelAndView();
         String movieName = form.getFirst("movieName");
@@ -147,10 +184,13 @@ public class MovieController {
         }
 
         String synopsis = form.getFirst("synopsis");
+        
         Boolean isDeleted = false;
 
+        Integer actorId = Integer.parseInt(form.getFirst("addActor"));
+
         try {
-            movieSvc.createMovie(movieName, rating, releaseDate, synopsis, isDeleted);
+            movieSvc.createMovieWithActor(movieName, rating, releaseDate, synopsis, isDeleted, actorId);
         } catch (MovieException e) {
             mvc.addObject("messageMovie", "Error: %s".formatted(e.getReason()));
             mvc.setStatus(HttpStatus.BAD_REQUEST);
