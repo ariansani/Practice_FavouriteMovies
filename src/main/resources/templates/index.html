@@ -1,55 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie List</title>
-</head>
-<body>
+  </head>
+  <body>
+      <div style="width:80%; margin:0 auto;">
     <h1>My Favourite Movies</h1>
-    <table border =1>
-        <tbody>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Rating</th>
-            <th>Release Date</th>
-            <th>Synopsis</th>
-            <th>Acting Cast</th>
-            <tr data-th-each="movie : ${moviesList}">
-                <td data-th-text="${movie.getMovieId}"></td>
-                <td data-th-text="${movie.getMovieName}"></td>
-                <td data-th-text="${movie.getPersonalRating}"></td>
-                <td data-th-text="${movie.getReleaseDate}"></td>
-                <td data-th-text="${movie.getSynopsis}"></td>
-                <td>
-                <form data-th-action="@{/movie}" data-th-object="${movie}" method="get">
-                    <button name="movieId" data-th-value="${movie.getMovieId}" type="submit">View</button>
-                </form>
-                </td>
-            </tr>
-        </tbody>
+    <table border="1">
+      <tbody>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Release Date</th>
+        <th>Synopsis</th>
+        <th>Acting Cast</th>
+        <tr data-th-each="movie : ${moviesList}">
+          <td data-th-text="${movie.getMovieId}"></td>
+          <td data-th-text="${movie.getMovieName}"></td>
+          <td data-th-text="${movie.getPersonalRating}"></td>
+          <td data-th-text="${movie.getReleaseDate}"></td>
+          <td data-th-text="${movie.getSynopsis}"></td>
+          <td>
+            <form
+              data-th-action="@{/movie}"
+              data-th-object="${movie}"
+              method="get"
+            >
+              <button
+                name="movieId"
+                data-th-value="${movie.getMovieId}"
+                type="submit"
+              >
+                View
+              </button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <hr/>
-    <br/>
-    <h1>Actor List</h1>
-    <table border =1>
+    <h3 style="margin-top: 3em"><code>Add a new movie</code></h3>
+    <form
+      data-th-action="@{/createMovie}"
+      method="post"
+      style="margin: 0; padding: 0"
+    >
+      <div>
+        <input
+          style="display: inline"
+          type="text"
+          name="movieName"
+          placeholder="Name of Movie..."
+        />
+        <input
+          style="display: inline"
+          type="number"
+          name="rating"
+          placeholder="Rate it"
+          min="0"
+          max="10"
+        />
+        <input
+          style="display: inline"
+          type="date"
+          name="releaseDate"
+          placeholder="Release Date"
+        />
+        <textarea
+          style="display: inline"
+          type="textarea"
+          name="synopsis"
+          placeholder="synopsis"
+          rows="3"
+          cols="30"
+        ></textarea>
+        <button style="display: inline" type="submit">Create Movie</button>
+      </div>
+      <span data-th-text="${messageMovie}"></span>
+    </form>
+    <hr />
+    <br />
+    </div>
+    <div style="width: 300px; margin: 0 auto">
+      <h1>Actor List</h1>
+      <table border="1">
         <tbody>
-            <th>Id</th>
-            <th>Name</th>
-          
-            <tr data-th-each="actor : ${actorsList}">
-                <td data-th-text="${actor.getActorId}"></td>
-                <td data-th-text="${actor.getActorName}"></td>
-            </tr>
+          <th>Id</th>
+          <th>Name</th>
+
+          <tr data-th-each="actor : ${actorsList}">
+            <td data-th-text="${actor.getActorId}"></td>
+            <td data-th-text="${actor.getActorName}"></td>
+          </tr>
         </tbody>
-    </table>
-    
-        <form data-th-action="@{/createActor}" method="post">
-            <input type="text" name="actorName">
-            <button type="submit">Add</button>
-        </form>
-        <span data-th-text="${message}"></span>
-        
-</body>
+      </table>
+
+      <form data-th-action="@{/createActor}" method="post">
+        <input type="text" name="actorName" />
+        <button type="submit">Add</button>
+      </form>
+      <span data-th-text="${messageActor}"></span>
+    </div>
+  </body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.April12Revision.repositories;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -123,6 +124,22 @@ public class MovieRepository {
         return 1 == count;
     }
 
+    public Optional<Integer> movieAlreadyCreated(String movieName, Boolean is_deleted){
+        final SqlRowSet rs = template.queryForRowSet(Queries.SQL_CHECK_IF_MOVIE_EXISTS, movieName, is_deleted);
+        int count = 0;
+        if (!rs.next())
+            return Optional.empty();
+        
+        count++;
+        return Optional.of(count);
+
+    }
+
+    public boolean createMovie(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted){
+        int count = template.update(Queries.SQL_INSERT_MOVIE, movieName, rating, releaseDate, synopsis, isDeleted);
+        
+        return 1 == count;
+    }
 
 
 }
