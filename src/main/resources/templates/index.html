@@ -76,6 +76,12 @@
           rows="3"
           cols="30"
         ></textarea>
+        <select name="addActor" id="addActor">
+            <option selected="true" disabled>--SELECT MAIN ACTOR--</option>
+            <option data-th-each="actor : ${actorsList}"
+            data-th-value="${actor.getActorId}"
+            th:text="${actor.getActorName}"></option>
+        </select>
         <button style="display: inline" type="submit">Create Movie</button>
       </div>
       <span data-th-text="${messageMovie}"></span>

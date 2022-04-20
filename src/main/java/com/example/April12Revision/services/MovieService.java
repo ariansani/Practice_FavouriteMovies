@@ -12,6 +12,7 @@ import com.example.April12Revision.repositories.MovieRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MovieService {
@@ -57,7 +58,7 @@ public class MovieService {
         return Optional.of(movie);
 
     }
-
+    @Transactional(rollbackFor = MovieException.class)
     public void addActorToMovie(int actorId, int movieId) throws MovieException {
 
         Optional<Integer> opt = movieRepo.actorAlreadyExists(actorId, movieId);
@@ -82,18 +83,31 @@ public class MovieService {
 
     }
 
-    public void createMovie(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted) throws MovieException{
+    // public void createMovie(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted) throws MovieException{
 
+    //     Optional<Integer> opt = movieRepo.movieAlreadyCreated(movieName, isDeleted);
+
+    //     if (opt.isPresent())
+    //         throw new MovieException("%s is already available".formatted(movieName));
+        
+    //     if(!movieRepo.createMovie(movieName, rating, releaseDate, synopsis, isDeleted))
+    //         throw new MovieException("Cannot add %s. Please check with admin".formatted(movieName));
+
+
+    // }
+    @Transactional(rollbackFor = MovieException.class)
+    public void createMovieWithActor(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted, Integer actorId) throws MovieException{
+        
         Optional<Integer> opt = movieRepo.movieAlreadyCreated(movieName, isDeleted);
+
 
         if (opt.isPresent())
             throw new MovieException("%s is already available".formatted(movieName));
         
-        if(!movieRepo.createMovie(movieName, rating, releaseDate, synopsis, isDeleted))
-            throw new MovieException("Cannot add %s. Please check with admin".formatted(movieName));
+        final Integer movieId = movieRepo.createMovieWithTransactional(movieName, rating, releaseDate, synopsis, isDeleted);
 
+        addActorToMovie(actorId, movieId);
 
     }
-    
     
 }
