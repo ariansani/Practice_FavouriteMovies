@@ -1,5 +1,8 @@
 package com.example.April12Revision.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,19 +26,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping
 public class MovieController {
-    
+
     @Autowired
     private MovieService movieSvc;
 
     @GetMapping
-    public ModelAndView getMoviesIndex(){
+    public ModelAndView getMoviesIndex() {
 
         ModelAndView mvc = new ModelAndView();
 
         List<Movie> moviesList = movieSvc.getAllMovies();
         List<Actor> allActorsList = movieSvc.getAllActors();
-        
-        mvc.addObject("message", "");
+
+        mvc.addObject("messageMovie", "");
+        mvc.addObject("messageActor", "");
         mvc.addObject("moviesList", moviesList);
         mvc.addObject("actorsList", allActorsList);
         mvc.setStatus(HttpStatus.OK);
@@ -44,8 +48,8 @@ public class MovieController {
         return mvc;
     }
 
-    @GetMapping(path="/movie")
-    public ModelAndView getMovieActors(@RequestParam("movieId") Integer movieId){
+    @GetMapping(path = "/movie")
+    public ModelAndView getMovieActors(@RequestParam("movieId") Integer movieId) {
 
         ModelAndView mvc = new ModelAndView();
 
@@ -53,11 +57,10 @@ public class MovieController {
         Optional<Movie> optMovie = movieSvc.getMovieById(movieId);
         List<Actor> allActorsList = movieSvc.getAllActors();
 
-
         List<Actor> movieCast = opt.get();
 
         Movie movie = optMovie.get();
-        
+
         mvc.addObject("message", "");
         mvc.addObject("allActorsList", allActorsList);
         mvc.addObject("movieCast", movieCast);
@@ -68,26 +71,25 @@ public class MovieController {
         return mvc;
     }
 
-    @PostMapping(path="/addActor")
-    public ModelAndView addActorToMovie(@RequestBody MultiValueMap<String,String> form){
-        
+    @PostMapping(path = "/addActor")
+    public ModelAndView addActorToMovie(@RequestBody MultiValueMap<String, String> form) {
+
         ModelAndView mvc = new ModelAndView();
 
         Integer actorId = Integer.parseInt(form.getFirst("addActor"));
         Integer movieId = Integer.parseInt(form.getFirst("movieId"));
-        
 
-        try{
+        try {
             movieSvc.addActorToMovie(actorId, movieId);
 
-        }catch (MovieException ex) {
+        } catch (MovieException ex) {
             mvc.addObject("message", "Error: %s".formatted(ex.getReason()));
             mvc.setStatus(HttpStatus.BAD_REQUEST);
             ex.printStackTrace();
         }
 
         List<Actor> allActorsList = movieSvc.getAllActors();
-          
+
         Optional<List<Actor>> opt = movieSvc.getActorsByMovie(movieId);
         Optional<Movie> optMovie = movieSvc.getMovieById(movieId);
 
@@ -102,21 +104,20 @@ public class MovieController {
         return mvc;
     }
 
-    @PostMapping(path="/createActor")
-    public ModelAndView createActor(@RequestBody MultiValueMap<String,String> form){
+    @PostMapping(path = "/createActor")
+    public ModelAndView createActor(@RequestBody MultiValueMap<String, String> form) {
 
         ModelAndView mvc = new ModelAndView();
-        
+
         String actorName = form.getFirst("actorName");
-        try{
+        try {
             movieSvc.createActor(actorName, false);
 
-        }catch (ActorException ex) {
-            mvc.addObject("message", "Error: %s".formatted(ex.getReason()));
+        } catch (ActorException ex) {
+            mvc.addObject("messageActor", "Error: %s".formatted(ex.getReason()));
             mvc.setStatus(HttpStatus.BAD_REQUEST);
             ex.printStackTrace();
         }
-
 
         List<Movie> moviesList = movieSvc.getAllMovies();
         List<Actor> allActorsList = movieSvc.getAllActors();
@@ -128,6 +129,42 @@ public class MovieController {
         return mvc;
     }
 
+    @PostMapping(path = "/createMovie")
+    public ModelAndView createMovie(@RequestBody MultiValueMap<String, String> form) {
 
+        ModelAndView mvc = new ModelAndView();
+        String movieName = form.getFirst("movieName");
+        Integer rating = Integer.parseInt(form.getFirst("rating"));
+        String dateStr = form.getFirst("releaseDate");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date releaseDate;
+        try {
+            releaseDate = format.parse(dateStr);
+        } catch (ParseException e) {
+            releaseDate = null;
+            e.printStackTrace();
+        }
+
+        String synopsis = form.getFirst("synopsis");
+        Boolean isDeleted = false;
+
+        try {
+            movieSvc.createMovie(movieName, rating, releaseDate, synopsis, isDeleted);
+        } catch (MovieException e) {
+            mvc.addObject("messageMovie", "Error: %s".formatted(e.getReason()));
+            mvc.setStatus(HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
+        }
+
+        List<Movie> moviesList = movieSvc.getAllMovies();
+        List<Actor> allActorsList = movieSvc.getAllActors();
+        mvc.addObject("moviesList", moviesList);
+        mvc.addObject("actorsList", allActorsList);
+        mvc.setStatus(HttpStatus.OK);
+        mvc.setViewName("index");
+
+        return mvc;
+    }
 
 }
