@@ -44,6 +44,6 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{ secrets.heroku_api_key }}
-          heroku_app_name: testuploadarian
+          heroku_app_name: testuploadarian2
           heroku_email: ${{ secrets.heroku_email }}
           branch: ${{ github.ref_name }}
