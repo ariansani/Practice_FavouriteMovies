@@ -164,4 +164,19 @@ public class MovieRepository {
         return generatedMovieId.intValue();
     }
 
+    public boolean deleteMovieById(Integer movieId) {
+        int count = template.update(Queries.SQL_DELETE_MOVIE_BY_ID, movieId);
+        return 1 == count;
+    }
+
+    public boolean deleteActorById(Integer actorId) {
+        int count = template.update(Queries.SQL_DELETE_ACTOR_BY_ID, actorId);
+        return 1 == count;
+    }
+
+    public boolean deleteMovieCast(Integer movieId, Integer actorId) {
+        int count = template.update(Queries.SQL_DELETE_MOVIE_CAST,movieId, actorId);
+        return 1 == count;
+    }
+
 }

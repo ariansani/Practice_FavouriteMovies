@@ -12,5 +12,7 @@ public interface Queries {
     public static final String SQL_INSERT_ACTOR = "INSERT INTO actors (actor_name, is_deleted) values (?, ?)";
     public static final String SQL_CHECK_IF_MOVIE_EXISTS = "SELECT * from favourite_movies WHERE movie_name = ? and is_deleted = ?";
     public static final String SQL_INSERT_MOVIE = "INSERT INTO favourite_movies (movie_name, personal_rating, release_date, synopsis, is_deleted) values (?, ?, ?, ?, ?)";
-    
+    public static final String SQL_DELETE_MOVIE_BY_ID = "DELETE FROM favourite_movies WHERE movie_id = ?";
+    public static final String SQL_DELETE_ACTOR_BY_ID = "DELETE FROM actors WHERE actor_id = ?";
+    public static final String SQL_DELETE_MOVIE_CAST = "DELETE FROM movie_cast WHERE movie_id = ? and actor_id = ?";
 }

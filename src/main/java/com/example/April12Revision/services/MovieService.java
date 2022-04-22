@@ -83,18 +83,18 @@ public class MovieService {
 
     }
 
-    // public void createMovie(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted) throws MovieException{
+    public void createMovie(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted) throws MovieException{
 
-    //     Optional<Integer> opt = movieRepo.movieAlreadyCreated(movieName, isDeleted);
+        Optional<Integer> opt = movieRepo.movieAlreadyCreated(movieName, isDeleted);
 
-    //     if (opt.isPresent())
-    //         throw new MovieException("%s is already available".formatted(movieName));
+        if (opt.isPresent())
+            throw new MovieException("%s is already available".formatted(movieName));
         
-    //     if(!movieRepo.createMovie(movieName, rating, releaseDate, synopsis, isDeleted))
-    //         throw new MovieException("Cannot add %s. Please check with admin".formatted(movieName));
+        if(!movieRepo.createMovie(movieName, rating, releaseDate, synopsis, isDeleted))
+            throw new MovieException("Cannot add %s. Please check with admin".formatted(movieName));
 
 
-    // }
+    }
     @Transactional(rollbackFor = MovieException.class)
     public void createMovieWithActor(String movieName,Integer rating,Date releaseDate,String synopsis,Boolean isDeleted, Integer actorId) throws MovieException{
         
@@ -109,5 +109,7 @@ public class MovieService {
         addActorToMovie(actorId, movieId);
 
     }
+
+    
     
 }
