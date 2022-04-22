@@ -45,7 +45,7 @@ jobs:
           space_region: sgp1
           source: target/site/jacoco
           out_dir: coverage/${{ github.event.repository.name }}/report
-      - name: Deploy
+      - name: DeployHeroku
         uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{ secrets.heroku_api_key }}
