@@ -51,3 +51,7 @@ jobs:
           heroku_app_name: testuploadarian2
           heroku_email: ${{ secrets.heroku_email }}
           branch: ${{ github.ref_name }}
+        env:
+          HD_SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          HD_SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          HD_SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
