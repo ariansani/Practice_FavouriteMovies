@@ -1,5 +1,13 @@
 name: Compile, test, deploy
 on: ["push"]
+spring:
+  datasource:
+    driver-class-name: "com.mysql.jdbc.Driver"
+    url: ${{ secrets.SPRING_DATASOURCE_URL }}
+    username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+    password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+server:
+  port: 25060
 jobs:
   step1:
     runs-on: ubuntu-latest
