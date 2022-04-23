@@ -1,9 +1,5 @@
 name: Compile, test, deploy heroku
 on: ["push"]
-env:
-  SPRING_DATASOURCE_URL: jdbc:mysql://movieapp:AVNS_RbKa8X7yfL5DgvB@arian-mysqldb-digitalocean-do-user-11291432-0.b.db.ondigitalocean.com:25060/favourite_movies
-  SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-  SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 jobs:
   step1:
     runs-on: ubuntu-latest
