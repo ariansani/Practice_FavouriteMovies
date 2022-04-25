@@ -10,6 +10,7 @@
     * PORT
     * DATABASE
 5. _(Github Secrets)_ Add the connection information to your Github Secrets (without the curly braces)
+
     * SPRING_DATASOURCE_URL
     ```
     jdbc:mysql://{HOST}:{PORT}/{DATABASE}
@@ -54,6 +55,7 @@ java.runtime.version=17
 16. _(Heroku Dashboard)_ Login to heroku
 17. _(Heroku Dashboard)_ Go to account settings and retrieve the API Key
 18. _(Github Secrets)_ Add the Heroku connection to your Github Secrets (without the curly braces)
+
     * HEROKU_API_KEY
     ```
     {YOUR_HEROKU_API_KEY}
@@ -64,8 +66,8 @@ java.runtime.version=17
     ```
 19. _(Heroku Dashboard)_ Create an app with your own app name. We will need this name to put in our YAML file.
 20. _(IDE)_ In your YML steps, add the code block below to deploy to heroku
- * Replace the heroku_app_name with your own app name.
- * Beware of proper indentation
+    * Replace the heroku_app_name with your own app name.
+    * Beware of proper indentation
 ```yml
 - name: DeployHeroku
         uses: akhileshns/heroku-deploy@v3.12.12 
