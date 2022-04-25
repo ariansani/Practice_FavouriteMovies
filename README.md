@@ -2,7 +2,7 @@
 ### Project Set Up
 1. _(MySQL Workbench)_ connect to Digital Ocean Cloud with DOAdmin
 2. _(MYSQL Workbench)_ Create database and tables
-3. _(MySQL Workbench)_ Create a user and assign the database privileges 
+3. _(MySQL Workbench)_ Create a database user and assign the database privileges 
 4. _(DigitalOcean website)_ Retrieve the connection information of created user
     * USERNAME
     * PASSWORD
@@ -28,10 +28,10 @@
     * Thymeleaf
     * Spring Web
     * JDBC API
-7. _(IDE)_ Add the additional dependencies for:
+7. _(IDE)_ Add the additional dependencies/plugin for:
     * mysql-connector-java
     * jakarta.json
-    * jacoco test report
+    * jacoco test report plugin
 8. _(IDE)_ Add the connection information from your Github Secrets to application.properties (WITH the curly braces)
 ```
 spring.datasource.url=${secrets.SPRING_DATASOURCE_URL}
@@ -64,8 +64,8 @@ java.runtime.version=17
     ```
     {YOUR_HEROKU_EMAIL}
     ```
-19. _(Heroku Dashboard)_ Create an app with your own app name. We will need this name to put in our YAML file.
-20. _(IDE)_ In your YML steps, add the code block below to deploy to heroku
+19. _(Heroku Dashboard)_ Create an app with your own app name. We will need this name to put in our YML file.
+20. _(IDE)_ Under the YML steps, add the code below to deploy to Heroku
     * Replace the heroku_app_name with your own app name.
     * Beware of proper indentation
 ```yml
@@ -82,4 +82,4 @@ java.runtime.version=17
           HD_SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 ```
 21. Deploy your code to github
-22. Open your heroku URL to check that it runs successfully with Digital Ocean cloud.
+22. Open your heroku URL to check that it runs successfully with Digital Ocean cloud database.
