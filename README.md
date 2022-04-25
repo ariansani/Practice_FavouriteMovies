@@ -81,4 +81,5 @@ java.runtime.version=17
           HD_SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
           HD_SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 ```
-21. Check your heroku URL to check that it runs successfully with Digital Ocean cloud.
+21. Deploy your code to github
+22. Open your heroku URL to check that it runs successfully with Digital Ocean cloud.
