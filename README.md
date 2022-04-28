@@ -1,3 +1,6 @@
+[![Compile, test, deploy](https://github.com/ariansani/Practice_FavouriteMovies/actions/workflows/main.yml/badge.svg)](https://github.com/ariansani/Practice_FavouriteMovies/actions/workflows/main.yml/)
+
+![Coverage](https://digitalocean-arian.sgp1.digitaloceanspaces.com/coverage/Practice_FavouriteMovies/jacoco.svg)
 # Step-by-step walkthrough - Build your project and deploy on heroku with Cloud DB
 ### Project Set Up
 1. _(MySQL Workbench)_ connect to Digital Ocean Cloud with DOAdmin
